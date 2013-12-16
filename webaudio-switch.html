@@ -1,0 +1,124 @@
+﻿<link rel="import" href="../polymer/polymer.html">
+<polymer-element name="webaudio-switch" attributes="value defvalue type width height src tooltip enable">
+  <template>
+    <div class="body" id="body">
+      <div id="switch" on-tap="{{switchTap}}" on-mouseover="{{switchOver}}" on-mouseout="{{switchOut}}"></div>
+      <div id="tipbox"><span id="tiptext">{{tooltip}}</span></div>
+    </div>
+    <style>
+      :host {
+        display: inline-block;
+        font-family: sans-serif;
+        font-size: 11px;
+        vertical-align: middle;
+      }
+      #body {
+        position: relative;
+      }
+      #switch {
+        cursor: pointer;
+        width: 56px;
+        height: 56px;
+        background-position: -56px;
+        background-repeat: no-repeat;
+      }
+      #tipbox {
+        position: absolute;
+        bottom: -24px;
+        left: 20px;
+        z-index: 10;
+        display: none;
+        opacity: 0;
+        width: 200px;
+        transition: opacity 0.5s;
+      }
+      #tiptext {
+        display: inline-block;
+        border: solid 0px #666;
+        background-color: #fff;
+        color: #000;
+        border-radius: 5px;
+        padding: 5px;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer('webaudio-switch', {
+      rawValue: 0,
+      value: 0,
+      defvalue: null,
+      type: 'toggle',
+      width: 56,
+      height: 56,
+      src: 'img/switch_toggle.png',
+      enable: true,
+      tooltip: '',
+      created: function() {
+        // default path must be resolved relative to the import location
+        // user specified sources will be relative to user's location
+        // TODO(sjmiles): happens before bindings? does not trigger srcChanged
+        this.src = this.resolvePath(this.src);
+      },
+      ready: function() {
+        this.srcChanged();
+      },
+      srcChanged: function() {
+        this.$.switch.style.background = 'url(' + this.src + ')';
+      },
+      switchTap: function(e) {
+        switch (this.type) {
+          case 'toggle':
+            if (e.ctrlKey || e.metaKey)
+              this.rawValue = this.defvalue;
+            else
+              this.rawValue = 1 - this.value;
+            break;
+          case 'kick':
+          case 'radio':
+            this.rawValue = 1;
+            break;
+        }
+        this.showTip();
+      },
+      switchOver: function(e) {
+        var btn = (typeof(e.buttons) !== 'undefined')  ? e.buttons : e.which;
+        if (btn === 0) {
+          this.async('showTip', null, 700);
+        }
+        if (this.type === 'kick') { // && this.press) {
+          this.rawValue = 1;
+        }
+      },
+      switchOut: function(e) {
+        this.hideTip();
+        if (this.type === "kick") {
+          this.rawValue = 0;
+        }
+      },
+      showTip: function() {
+        var ts = this.$.tipbox.style;
+        ts.display = 'block';
+        ts.opacity = 0.8;
+      },
+      hideTip: function() {
+        var ts = this.$.tipbox.style;
+        ts.opacity = 0;
+        setTimeout(function(){ts.display='none';}, 500);
+      },
+      click: function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      },
+      rawValueChanged: function() {
+        this.value = parseInt(this.rawValue);
+      },
+      valueChanged: function() {
+        this.rawValue = this.value;
+        this.$.switch.style.backgroundPosition = '0px -' + (this.value * this.height) + 'px';
+        this.fire('change');
+        //console.log('[%s]: change: [%d]', this.localName, this.value);
+      }
+    });
+  </script>
+</polymer-element>
