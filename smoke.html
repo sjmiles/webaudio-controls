@@ -1,59 +1,54 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>[Polymer] WebAudio-Controls Live Demo</title>
+    <title>[Polymer] WebAudio Knob Examples</title>
     <script src="../platform-dev/platform.js"></script>
-    <link rel="import" href="webaudio-switch.html">
-    <style type="text/css">
-      table {
-        border: 1px solid #666;
+    <link rel="import" href="webaudio-knob.html">
+    <style>
+      body {
+        margin: 10px;
+        background-color: whitesmoke;
+        font-family: Helvetica;
+        font-size: 0.85em;
+        user-select: none;
+        -webkit-user-select: none;
       }
-      table td {
-        border: 1px solid #bbb;
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      [knobs] {
+        display: inline-block;
+        background-color: gray;
+        padding: 8px;
+      }
+      webaudio-knob {
+        vertical-align: middle;
       }
     </style>
-</head>
-<body style="background-color:#eee;">
-  <h1>WebAudio-Controls Live Demo</h1>
-  <div style="position:relative;background-image: url('img/bg.png');width:512px;height:240px;margin:30px auto;padding:0px;">
-    <webaudio-switch style="position:absolute;left:440px;top:38px" src="img/switch_toggle.png" value="0" height="56" width="56" tooltip="Switch-A Tooltip text test"></webaudio-switch>
-    <webaudio-switch style="position:absolute;left:440px;top:102px" src="img/switch_toggle.png" value="0" height="56" width="56" tooltip="Switch-B" type="kick"></webaudio-switch>
-  </div>
-  <div>
-  <h2>Available At</h2>
-  <b><a href="https://github.com/g200kg/webaudio-controls">https://github.com/g200kg/webaudio-controls</a></b>
-  <h2>To Operate</h2>
-  <table>
-    <tr><th>Operation</th><th>Component</th><th>Description</th></tr>
-    <tr><td><b>Click</b></td><td>Switch/Param</td><td>toggle / activate the switch or focus the param</td></tr>
-    <tr><td><b>Drag</b></td><td>Knob/Slider</td><td>up/right to increase value / down/left to decrease value</td></tr>
-    <tr><td><b>Shift+Drag</b></td><td>Knob/Slider</td><td>fine control</td></tr>
-    <tr><td><b>Ctrl+Click/Command+Click</b></td><td>Knob/Slider/Switch</td><td>set to default value</td></tr>
-    <tr><td><b>Edit with Keyboard</strong></td><td>Param</td><td>edit the value directly</td></tr>
-    <tr><td><b>MouseWheel</b></td><td>Knob/Slider</td><td>rotate upward to increase value / downward to decrease value</td></tr>
-    <tr><td><b>Shift+MouseWheel</b></td><td>Knob/Slider</td><td>fine control</td></tr>
-  </table>
-  </div>
-
-  <div>
-  <h2>License</h2>
-  webaudio-controls is based on:
-  <ul>
-  <li><a href="https://github.com/agektmr/webaudio-knob" target="_blank">WebAudio-Knob</a> by <a href="http://google.com/+agektmr" target="_blank">Eiji Kitamura</a></li>
-  <li><a href="https://github.com/ryoyakawai/webaudio-slider" target="_blank">WebAudio-Slider</a> by <a href="https://plus.google.com/108242669191458983485/posts" target="_blank">Ryoya Kawai</a></li>
-  <li><a href="http://aikelab.net/switch/" target="_blank">WebAudio-Switch</a> by <a href="http://d.hatena.ne.jp/aike/" target="_blank">Keisuke Ai</a></li>
-  <li>Integrated and enhanced by <a href="http://www.g200kg.com/" target="_blank">g200kg</a></li>
-  </ul>
-
-  <p><b>webaudio-controls</b> is licensed under the Apache License, Version 2.0<br/>
-  Copyright (c) 2013 Eiji Kitamura / Ryoya KAWAI / Keisuke Ai / g200kg (Tatsuya Shinyagaito)<br/>
-  </p>
-  <p>Using <a href="http://polymer-project.org/" target="_blank">Polymer</a> and <a href="http://www.w3.org/TR/components-intro/" target="_blank">WebComponents</a><br/>
-  </p>
-  <hr/>
-  Knob/Switch images are from <a href="http://www.g200kg.com/en/webknobman/gallery.php" target="_blank">Knob Gallery</a><br/>
-  <a href="http://www.g200kg.com/en/webknobman/gallery.php?m=p&p=58" target="_blank">switch_toggle.knob</a> by <a href="http://bji.yukihotaru.com/" target="_blank">az</a> Copyright (c) 2011 <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">CC-BY</a>
-  </div>
-</body>
+  </head>
+  <body unresolved>
+    <header>
+      <h1>Polymer Web Audio Knob Elements</h1>
+      <p>Try drag up and down these knobs.</p>
+      <p>These knobs are made using <a href="http://polymer-project.org/" target="_blank">Polymer</a> and <a href="http://www.w3.org/TR/components-intro/" target="_blank">WebComponents</a>. Checkout <a href="http://github.com/agektmr/webaudio-knob" target="_blank">source code</a>.</p>
+    </header>
+    <div knobs>
+      <webaudio-knob></webaudio-knob>
+      <webaudio-knob src="img/switch_toggle.png" max="50" scalar="0.05" step="1" sprites="1" diameter="56"></webaudio-knob>
+      <webaudio-knob src="img/hsw5.png" max="50" step="1" width="128" height="32" sprites="4"></webaudio-knob>
+      <webaudio-knob src="img/vernier.png" diameter="128" min="-127" max="127" sprites="50"></webaudio-knob>
+      <webaudio-knob src="img/LittlePhatty.png" max="1024" step="10" sprites="100"></webaudio-knob>
+    </div>
+    <footer>
+      <hr>
+      <a href="http://www.g200kg.com/en/webknobman/gallery.php" target="_blank"><img src="img/webknobman.png" style="float:right;"></a>
+      <p>Developed by <a href="http://google.com/+agektmr" target="_blank">Eiji Kitamura</a>. Knobs' design borrowed from <a href="http://www.g200kg.com/en/webknobman/gallery.php" target="_blank">WebKnobMan</a>.</p>
+      <ul style="font-size:0.85em;">
+        <li><a href="http://www.g200kg.com/en/webknobman/gallery.php?m=p&p=47" target="_blank">knob_64_white1.knob</a> by az © 2011 is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">Creative Commons CC-BY</a>.</li>
+        <li><a href="http://www.g200kg.com/en/webknobman/gallery.php?m=p&p=104" target="_blank">color_knob.knob</a> by az © 2012 is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">Creative Commons CC-BY</a>.</li>
+      </ul>
+    </footer>
+  </body>
 </html>

@@ -1,0 +1,242 @@
+﻿<!--
+/**
+ *
+ * Visual knob element
+ *
+ * Example:
+ *
+ *     <webaudio-knob min="-127" max="127"></webaudio-knob>
+ *
+ * WebAudio-Controls is based on
+ *   webaudio-knob by Eiji Kitamura http://google.com/+agektmr
+ *   webaudio-slider by RYoya Kawai https://plus.google.com/108242669191458983485/posts
+ *   webaudio-switch by Keisuke Ai http://d.hatena.ne.jp/aike/
+ * Integrated and enhanced by g200kg http://www.g200kg.com/
+ *
+ * Copyright 2013 Eiji Kitamura / Ryoya KAWAI / Keisuke Ai / g200kg(Tatsuya Shinyagaito)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @class webaudio-knob
+ */
+/**
+ * Fired when the knob value changes.
+ *
+ * @event change
+ */
+-->
+<link rel="import" href="../polymer/polymer.html">
+<polymer-element name="webaudio-knob">
+  <template>
+    <link rel="stylesheet" href="webaudio-knob.css">
+    <div 
+      id="knob"
+      style="width: {{width}}px; height: {{height}}px; background: url({{src}}) 0px {{offset}}px; transform: rotate({{rotation| rotationFilter}}deg);"
+      on-pointerenter="{{enter}}" on-pointerleave="{{leave}}"
+      on-dommousescroll="{{wheel}}" on-mousewheel="{{wheel}}"
+      on-trackStart="{{trackStart}}" on-track="{{track}}" on-trackEnd="{{trackEnd}}"
+      on-hold="{{hold}}"
+      on-mousedown="{{down}}"
+    ></div>
+    <span id="valuetip" class="tip" shown?="{{(showTips || tracking) && valuetip}}"><span>{{validValue | valueDisplayFilter}}</span></span>
+    <div id="tooltip" class="tip" shown?="{{(showTips || tracking) && tooltip}}"><span>{{tooltip}}</span></div>
+  </template>
+  <script>
+    Polymer('webaudio-knob', {
+      publish: {
+        /**
+         * Value of the knob.
+         * 
+         * @attribute value
+         * @type Number
+         * @default 0
+        */
+        value: 0,
+        /**
+         * Minimum value of the knob.
+         * 
+         * @attribute min
+         * @type Number
+         * @default 0
+        */
+        min: 0,
+        /**
+         * Maximum value of the knob.
+         * 
+         * @attribute max
+         * @type Number
+         * @default 127
+        */
+        max: 100,
+        /**
+         * Default value. 'Holding' down a knob will restore this value.
+         * 
+         * @attribute defvalue
+         * @type Number
+         * @default NaN
+        */
+        defvalue: NaN,
+        /**
+         * Scaling value applied when displaying the value tooltip.
+         *
+         * A (0-49) knob with scalar of 0.1 will only display
+         * integer values 0, 1, 2, 3, 4.
+         * 
+         * @attribute scalar
+         * @type Number
+         * @default 1
+        */
+        scalar: 1,
+        step: 1,
+        digits: 0,
+        /**
+         * Knob sprite diameter, in pixels.
+         *
+         * Setting diameter will set width and height to the diameter value.
+         * 
+         * @attribute diameter
+         * @type Number
+         * @default 64
+        */
+        diameter: 64,
+        /**
+         * Knob sprite width, in pixels.
+         * 
+         * @attribute width
+         * @type Number
+         * @default 64
+        */
+        width: 64,
+        /**
+         * Knob sprite height, in pixels.
+         * 
+         * @attribute height
+         * @type Number
+         * @default 64
+        */
+        height: 64,
+        /**
+         * Number of sprites in the knob image.
+         * 
+         * @attribute sprites
+         * @type Number
+         * @default 30
+        */
+        sprites: 100,
+        /**
+         * Display knob value as a tool-tip if true.
+         * 
+         * @attribute valuetip
+         * @type Boolean
+         * @default true
+        */
+        valuetip: true,
+        /**
+         * Text to display as a tool-tip.
+         * 
+         * @attribute tooltip
+         * @type String
+         * @default ''
+        */
+        tooltip: '',
+        /**
+         * Source URL for knob sprite images.
+         * 
+         * @attribute src
+         * @type String
+         * @default [~]/img/LittlePhatty.png
+        */
+        src: ''
+      },
+      observe: {
+        'min max value digits': 'validateValue',
+        'width height sprites': 'validateDisplay'
+      },
+      showTips: false,
+      defaultSrc: 'img/LittlePhatty.png',
+      validValue: 0,
+      // lifecycle
+      ready: function() {
+        if (isNaN(this.defvalue)) {
+          this.defvalue = this.value;
+        }
+        this.validValue = this.value;
+        // calculate significant digits from the step value
+        if (this.step && this.step < 1) {
+          for (var n = this.step ; n < 1; n *= 10, ++this.digits);
+        }
+        // default path must be resolved relative to the import location
+        // user specified sources will be relative to user's location
+        if (!this.src) {
+          this.src = this.resolvePath(this.defaultSrc);
+        }
+        this.validateDisplay();
+      },
+      // data effects
+      diameterChanged: function() {
+        this.width = this.diameter;
+        this.height = this.diameter;
+      },
+      validateValue: function() {
+        this.value = Math.max(Math.min(this.value, this.max), this.min);
+        this.validValue = this.value;
+      },
+      validValueChanged: function() {
+        this.validateDisplay();
+        this.fire('change');
+      },
+      validateDisplay: function() {
+        var range = Math.abs(this.max - this.min);
+        if (this.sprites) {
+          this.offset = -Math.floor(this.sprites * (this.value - this.min) / range) * this.height;
+        } else {
+          this.rotation = 270*((this.value-this.min) / range - 0.5)
+        }
+      },
+      valueDisplayFilter: function() {
+        return (this.value * this.scalar).toFixed(this.digits);
+      },
+      rotationFilter: function() {
+        // TODO(sjmiles): I would argue that the point of this DOM binding is
+        // to isolate JS code from CSS knowledge. I'm making an exception in
+        // this case, because this prefixing junk is an implementation detail
+        // that I just want to abstract away.
+        return 'deg); -ms-transform: rotate(' + this.rotation + 'deg); -webkit-transform: rotate(' + this.rotation;
+      },
+      // events
+      enter: function() {
+        this.showTips = true;
+      },
+      leave: function() {
+        this.showTips = false;
+      },
+      trackStart: function(e) {
+        this.tracking = true;
+      },
+      track: function(e) {
+        var scalar = e.shiftKey ? 8 : 2;
+        this.value += (e.ddx - e.ddy) * this.step / scalar;
+      },
+      trackEnd: function(e) {
+        this.tracking = false;
+      },
+      hold: function() {
+        this.value = this.defvalue;
+      },
+      down: function(e) {
+        // avoid selecting text when dragging the knob
+        e.preventDefault();
+      }
+    });
+  </script>
+</polymer-element>

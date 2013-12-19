@@ -1,0 +1,48 @@
+﻿:host {
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 11px;
+  position: relative;
+  vertical-align: middle;
+}
+
+#knob {
+  cursor: pointer;
+  width: 64px;
+  height: 64px;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+}
+
+.tip {
+  position: absolute;
+  z-index: 10;
+  transition: opacity 0.2s ease-in 10ms;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.tip[shown] {
+  opacity: 0.8;
+  transition: opacity 0.3s ease-in 400ms;
+}
+
+.tip span {
+  display: inline-block;
+  border: solid 1px #666;
+  background-color: #fff;
+  color: #000;
+  border-radius: 4px;
+  padding: 3px 8px;
+}
+
+#valuetip {
+  top: -20px;
+  right: 0;
+}
+
+#tooltip {
+  bottom: -24px;
+  left: 20px;
+  width: 200px;
+}
