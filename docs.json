@@ -26,13 +26,13 @@
             "extension_for": [],
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
             "line": 2,
-            "description": "Visual knob element\nExample:\n    <webaudio-knob min=\"-127\" max=\"127\"></webaudio-knob>\nWebAudio-Controls is based on\n   webaudio-knob by Eiji Kitamura http://google.com/+agektmr\n   webaudio-slider by RYoya Kawai https://plus.google.com/108242669191458983485/posts\n   webaudio-switch by Keisuke Ai http://d.hatena.ne.jp/aike/\n Integrated and enhanced by g200kg http://www.g200kg.com/\nWebAudio-Controls is based on\n   webaudio-knob by Eiji Kitamura http://google.com/+agektmr\n   webaudio-slider by RYoya Kawai https://plus.google.com/108242669191458983485/posts\n   webaudio-switch by Keisuke Ai http://d.hatena.ne.jp/aike/\n Integrated and enhanced by g200kg http://www.g200kg.com/\nCopyright 2013 Eiji Kitamura / Ryoya KAWAI / Keisuke Ai / g200kg(Tatsuya Shinyagaito)\nLicensed under the Apache License, Version 2.0 (the \"License\");\n you may not use this file except in compliance with the License.\n You may obtain a copy of the License at\nhttp://www.apache.org/licenses/LICENSE-2.0\nUnless required by applicable law or agreed to in writing, software\n distributed under the License is distributed on an \"AS IS\" BASIS,\n WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n See the License for the specific language governing permissions and\n limitations under the License."
+            "description": "Visual knob element\nExample:\n    <webaudio-knob min=\"-127\" max=\"127\"></webaudio-knob>\nWebAudio-Controls is based on\n   webaudio-knob by Eiji Kitamura http://google.com/+agektmr\n   webaudio-slider by RYoya Kawai https://plus.google.com/108242669191458983485/posts\n   webaudio-switch by Keisuke Ai http://d.hatena.ne.jp/aike/\n Integrated and enhanced by g200kg http://www.g200kg.com/\nCopyright 2013 Eiji Kitamura / Ryoya KAWAI / Keisuke Ai / g200kg(Tatsuya Shinyagaito)\nLicensed under the Apache License, Version 2.0 (the \"License\");\n you may not use this file except in compliance with the License.\n You may obtain a copy of the License at\nhttp://www.apache.org/licenses/LICENSE-2.0\nUnless required by applicable law or agreed to in writing, software\n distributed under the License is distributed on an \"AS IS\" BASIS,\n WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n See the License for the specific language governing permissions and\n limitations under the License."
         }
     },
     "classitems": [
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 38,
+            "line": 32,
             "description": "Fired when the knob value changes.",
             "itemtype": "event",
             "name": "change",
@@ -40,7 +40,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 63,
+            "line": 57,
             "description": "Value of the knob.",
             "itemtype": "attribute",
             "name": "value",
@@ -50,7 +50,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 71,
+            "line": 65,
             "description": "Minimum value of the knob.",
             "itemtype": "attribute",
             "name": "min",
@@ -60,7 +60,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 79,
+            "line": 73,
             "description": "Maximum value of the knob.",
             "itemtype": "attribute",
             "name": "max",
@@ -70,7 +70,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 87,
+            "line": 81,
             "description": "Default value. 'Holding' down a knob will restore this value.",
             "itemtype": "attribute",
             "name": "defvalue",
@@ -80,7 +80,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 95,
+            "line": 89,
             "description": "Scaling value applied when displaying the value tooltip.\n\nA (0-49) knob with scalar of 0.1 will only display\ninteger values 0, 1, 2, 3, 4.",
             "itemtype": "attribute",
             "name": "scalar",
@@ -90,7 +90,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 108,
+            "line": 102,
             "description": "Knob sprite diameter, in pixels.\n\nSetting diameter will set width and height to the diameter value.",
             "itemtype": "attribute",
             "name": "diameter",
@@ -100,7 +100,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 118,
+            "line": 112,
             "description": "Knob sprite width, in pixels.",
             "itemtype": "attribute",
             "name": "width",
@@ -110,7 +110,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 126,
+            "line": 120,
             "description": "Knob sprite height, in pixels.",
             "itemtype": "attribute",
             "name": "height",
@@ -120,7 +120,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 134,
+            "line": 128,
             "description": "Number of sprites in the knob image.",
             "itemtype": "attribute",
             "name": "sprites",
@@ -130,7 +130,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 142,
+            "line": 136,
             "description": "Display knob value as a tool-tip if true.",
             "itemtype": "attribute",
             "name": "valuetip",
@@ -140,7 +140,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 150,
+            "line": 144,
             "description": "Text to display as a tool-tip.",
             "itemtype": "attribute",
             "name": "tooltip",
@@ -150,7 +150,7 @@
         },
         {
             "file": "..\\..\\webaudio-controls\\webaudio-knob.html",
-            "line": 158,
+            "line": 152,
             "description": "Source URL for knob sprite images.",
             "itemtype": "attribute",
             "name": "src",
